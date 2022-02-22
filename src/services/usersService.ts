@@ -2,16 +2,21 @@ import jwt from 'jsonwebtoken';
 import User from '../interface/User';
 import Error from '../interface/Error';
 import usersModel from '../models/usersModel';
+import usersSchema from '../schemas/usersSchema';
 
 async function createUser(body: User): Promise<any | Error> {
-  // const { username, classe, level, password } = body;
+  const { username, classe, level, password } = body;
+  console.log('username =>', username);
+  
+  const checkUsername = usersSchema.validateUsername(username);
+  const checkClasse = usersSchema.validateClasse(classe);
+  const checkLevel = usersSchema.validateLevel(level);
+  const checkPassword = usersSchema.validatePassword(password);
 
-  if (!body) {
-    return {
-      status: 404,
-      message: 'ta errado',
-    } as Error;
-  }
+  if (checkUsername) return checkUsername as Error;
+  if (checkClasse) return checkClasse as Error;
+  if (checkLevel) return checkLevel as Error;
+  if (checkPassword) return checkPassword;
 
   await usersModel.createUser(body);
   
@@ -20,8 +25,6 @@ async function createUser(body: User): Promise<any | Error> {
     process.env.JWT_SECRET as string,
     { algorithm: 'HS256', expiresIn: '1d' },
   );
-
-  console.log('token =>', token);
   
   return { status: 201, message: { token } };
 }

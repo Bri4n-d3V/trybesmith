@@ -10,8 +10,7 @@ async function createUser(body: User) : Promise <any> {
       'INSERT INTO Users (username, classe, level, password) VALUES (?, ?, ?, ?)', 
       [username, classe, level, password],
     );
-
-    console.log('result =>', result);
+  
     return result as any;
   } catch (error) {
     console.log('error =>', error);

@@ -5,7 +5,6 @@ import usersService from '../services/usersService';
 
 async function createUser(req: Request, res: Response): Promise<Response> {
   const reqBody: User = req.body;
-  console.log('reqBody =>', reqBody);
 
   const user = await usersService.createUser(reqBody);
   console.log('user =>', user);
