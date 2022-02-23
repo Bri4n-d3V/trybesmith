@@ -37,7 +37,7 @@ function validateAmount(amount: string) : Error | void {
 
 async function validateToken(authorization : string) : Promise < Error | void > {
   try {
-    await jwt.verify(authorization, process.env.JWT_SECRET as string);
+    await jwt.verify(authorization, 'GUESSWHAT?' as string);
   } catch (error) {
     return { status: 401, message: { error: 'Invalid token' } };
   }
