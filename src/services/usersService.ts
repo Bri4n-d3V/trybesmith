@@ -6,7 +6,6 @@ import usersSchema from '../schemas/usersSchema';
 
 async function createUser(body: User): Promise<any | Error> {
   const { username, classe, level, password } = body;
-  console.log('username =>', username);
   
   const checkUsername = usersSchema.validateUsername(username);
   const checkClasse = usersSchema.validateClasse(classe);
