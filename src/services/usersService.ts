@@ -21,7 +21,7 @@ async function createUser(body: User): Promise<any | Error> {
   
   const token = jwt.sign(
     body, 
-    process.env.JWT_SECRET as string,
+    'GUESSWHAT?' as string,
     { algorithm: 'HS256', expiresIn: '1d' },
   );
   
