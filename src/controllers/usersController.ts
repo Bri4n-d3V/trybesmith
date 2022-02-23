@@ -7,7 +7,6 @@ async function createUser(req: Request, res: Response): Promise<Response> {
   const reqBody: User = req.body;
 
   const user = await usersService.createUser(reqBody);
-  console.log('user =>', user);
 
   if ((user as Error).status) { 
     return res.status((user as Error).status)

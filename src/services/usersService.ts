@@ -16,7 +16,7 @@ async function createUser(body: User): Promise<any | Error> {
   if (checkUsername) return checkUsername as Error;
   if (checkClasse) return checkClasse as Error;
   if (checkLevel) return checkLevel as Error;
-  if (checkPassword) return checkPassword;
+  if (checkPassword) return checkPassword as Error;
 
   await usersModel.createUser(body);
   
