@@ -3,7 +3,7 @@ import Product from '../interface/Product';
 import Error from '../interface/Error';
 import productsService from '../services/productsService';
 
-async function createProduct(req: Request, res: Response): Promise<Response> {
+async function createProduct(req: Request, res: Response): Promise < Response > {
   const reqBody : Product = req.body;
   const { authorization } = req.headers;
 
@@ -17,4 +17,12 @@ async function createProduct(req: Request, res: Response): Promise<Response> {
   return res.status(response.status).json(response.message) as Response;
 }
 
-export default { createProduct };
+async function getAllProducts(req : Request, res : Response) : Promise < Response > {
+  const { authorization } = req.headers;
+
+  const result = await productsService.getAllProducts(authorization as string);
+
+  return res.status(result.status).json(result.message);
+}
+
+export default { createProduct, getAllProducts };

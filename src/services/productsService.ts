@@ -20,7 +20,6 @@ async function createProduct(body : Product, authorization : string) : Promise <
   if (checkToken) return checkToken as Error;
 
   const product = await productsModel.createProduct(body);
-  console.log('product =>', product);
   
   return { status: 201,
     message: { 
@@ -29,4 +28,21 @@ async function createProduct(body : Product, authorization : string) : Promise <
   };
 }
 
-export default { createProduct };
+async function getAllProducts(authorization : string) : Promise < any > {
+  if (!authorization) {
+    return { status: 401,
+      message: { error: 'Token not found' } };
+  }
+
+  const checkToken = await productsSchema.validateToken(authorization);
+
+  if (checkToken) return checkToken as Error;
+
+  const products = await productsModel.getAllProducts();
+  console.log('products =>', products);
+
+  return { status: 200,
+    message: products };
+}
+
+export default { createProduct, getAllProducts };
